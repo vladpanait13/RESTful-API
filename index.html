@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Meme Machine 🔥</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>🔥 Random Memes Generator</h1>
+
+    <div>
+      <label>Number of Memes: </label>
+      <input type="number" id="count" value="1" min="1" max="10" />
+      <button onclick="loadMemes()">Get Memes</button>
+    </div>
+
+    <div id="memes"></div>
+
+    <script>
+      async function loadMemes() {
+        const count = document.getElementById("count").value;
+        const res = await fetch(`/api/meme?count=${count}`);
+        const memes = await res.json();
+
+        const memeContainer = document.getElementById("memes");
+        memeContainer.innerHTML = "";
+
+        memes.forEach((meme) => {
+          const div = document.createElement("div");
+          div.className = "meme-card";
+          div.innerHTML = `
+          <h2>${meme.title}</h2>
+          <img src="${meme.meme_url}" alt="meme" width="300"/><br>
+          <p>Subreddit: <strong>${meme.subreddit}</strong></p>
+          <p>Author: u/${meme.author}</p>
+          <p>Upvotes: <span id="up-${meme.id}">${meme.upvotes}</span> | 
+             Downvotes: <span id="down-${meme.id}">${meme.downvotes}</span></p>
+          <button onclick="vote('${meme.id}', 'upvote')">⬆️ Upvote</button>
+          <button onclick="vote('${meme.id}', 'downvote')">⬇️ Downvote</button>
+          <hr/>
+        `;
+          memeContainer.appendChild(div);
+        });
+      }
+
+      async function vote(meme_id, voteType) {
+        const res = await fetch("/api/meme/vote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ meme_id, vote: voteType }),
+        });
+
+        const result = await res.json();
+        document.getElementById(
+          `${voteType === "upvote" ? "up" : "down"}-${meme_id}`
+        ).textContent = result.votes[`${voteType}s`];
+      }
+
+      // Auto-load 1 meme on page load
+      loadMemes();
+    </script>
+  </body>
+</html>
