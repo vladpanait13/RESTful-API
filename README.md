@@ -119,3 +119,14 @@ The app will be available at http://127.0.0.1:5000/.
 6.    **Basic Input Validation:**
 
         Checks for valid vote types and meme IDs.
+
+## REST summary checklist
+
+✅ RESTful Principle | ✅ Status | Notes
+Resource-oriented URL structure | ✅ Implemented | Clean and semantic routing: /api/meme, /api/meme/<subreddit>
+Proper use of HTTP methods | ✅ Implemented | GET used appropriately for data retrieval
+Returns JSON responses | ✅ Implemented | All endpoints return well-structured JSON
+Basic error handling | ✅ Implemented | Handles cases like invalid subreddits gracefully
+Uses HTTP status codes properly | ⚠️ Needs work | Currently always returns 200 OK, even on errors
+Input validation and security | ⚠️ Needs work | No validation on subreddit input yet
+Stateless interactions | ✅ Implemented | No sessions or persistent state across requests
