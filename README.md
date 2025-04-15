@@ -69,21 +69,21 @@ Registers a vote on a meme.
 ```
 
 ## 💻 How to Run
-1. Clone the repo
+1. **Clone the repo**
 ```
 git clone https://github.com/your-username/meme-machine.git
 cd meme-machine
 ```
-2. Install dependencies
+2. **Install dependencies**
 ```
 pip install flask requests
 ```
-3. Run the app
+3. **Run the app**
 ```
 python app.py
-
-The app will be available at http://127.0.0.1:5000/.
 ```
+The app will be available at http://127.0.0.1:5000/.
+
 
 ## 📝 Notes
 
@@ -92,30 +92,30 @@ The app will be available at http://127.0.0.1:5000/.
 
 ## ✅ What’s Good
 
-1.    Clear Use of HTTP Methods:
+1.    **Clear Use of HTTP Methods:**
 
         GET for retrieving memes.
 
         POST for voting — aligns well with REST principles.
 
-2.    Use of Query Parameters and Path Variables:
+2.    **Use of Query Parameters and Path Variables:**
 
         /api/meme?count=5 for query param usage.
 
         /api/meme/<subreddit> shows path parameter usage.
 
-3.    Separation of Concerns:
+3.    **Separation of Concerns:**
 
         The get_memes() function handles meme fetching logic separately from the route handlers.
 
-4.    Good JSON Responses:
+4.    **Good JSON Responses:**
 
         Returns well-structured JSON with informative fields.
 
-5.    In-Memory Data Structure:
+5.    **In-Memory Data Structure:**
 
         The vote_stats dictionary is a simple and effective way to simulate state management.
 
-6.    Basic Input Validation:
+6.    **Basic Input Validation:**
 
         Checks for valid vote types and meme IDs.
